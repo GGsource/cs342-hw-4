@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 public class Homework4 extends Application {
 	private Scene welcomeScene;
+	private Scene guestScene = null;
+	private Scene agentScene = null;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -43,12 +46,41 @@ public class Homework4 extends Application {
 		welcomeVBox.setAlignment(Pos.CENTER); //Center the vertical box
 		welcomeVBox.setSpacing(30);//Give the elements some space between eachother
 
+		//Deal with button presses
+		guestButton.setOnAction(e->{
+			if (guestScene == null)
+				guestScene = createGuestScene();
+			primaryStage.setScene(guestScene);
+		});
+		agentButton.setOnAction(e->{
+			if (validateCredentials()) { //Make them actually sign in
+				if (agentScene == null)
+					agentScene = createAgentScene();
+				primaryStage.setScene(agentScene);
+			}
+		});
+
 		//Create our welcome scene
 		welcomeScene = new Scene(welcomeVBox, 700,700);
-		
 		//Set the welcome scene on stage and display it
 		primaryStage.setScene(welcomeScene);
 		primaryStage.show();
+	}
+
+	private Scene createGuestScene() {
+		//TODO: Create the guest scene details here
+		return null;
+	}
+	private Scene createAgentScene() {
+		//TODO: Create the agent scene details here
+		return null;
+	}
+	private boolean validateCredentials() {
+		//TODO: Make a popup that makes user input credentials
+		//If user credentials are good, return true
+		//If credentials are bad, return false
+		//close popup?
+		return false;
 	}
 
 }

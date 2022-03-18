@@ -9,6 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -18,19 +23,25 @@ import javafx.stage.Stage;
 //TODO: Header comment
 //TODO: Tests
 //TODO: Make new textfiles for the program
+//TODO: PDF Explaining Proxy Design Pattern
 public class Homework4 extends Application {
+	//Scenes
 	private Scene welcomeScene;
 	private Scene guestScene = null;
 	private Scene agentScene = null;
 	private Scene fileDisplayScene = null;
-	//Save the chosen scene to return to it and see more files
-	private Scene chosenScene = null;
-
+	private Scene chosenScene = null;//Save chosen scene to return to it later
+	//Data Members
 	private static File f = new File("./src/main/resources/textfiles");
     private static String[] directoryFiles = f.list();
 	private Label fileName;
 	private Label fileContents;
 	private boolean isOfficial = false;
+	//Constants
+	private final String BAUHAUS_FONT = "file:src/main/resources/bauhaus-bold-bt.ttf";
+	private final BackgroundImage BG_IMAGE = new BackgroundImage(new Image("file:src/main/resources/images/background.png"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+	private final Background CARBON_BG = new Background(BG_IMAGE);
+	private final String SET_TEXT_WHITE = "-fx-text-fill: white";
 
 	public static void main(String[] args) {
 		launch(args);
@@ -50,13 +61,16 @@ public class Homework4 extends Application {
 		ImageView foundationLogo = new ImageView(scpFoundationImage);
 		//Let the user know what they are using
 		Label scpTitleLabel = new Label("SCP Foundation");
-		scpTitleLabel.setFont(Font.loadFont("file:src/main/resources/bauhaus-bold-bt.ttf", 75));
+		scpTitleLabel.setFont(Font.loadFont(BAUHAUS_FONT, 75));
+		scpTitleLabel.setStyle(SET_TEXT_WHITE);
+		scpTitleLabel.setTextAlignment(TextAlignment.CENTER); //Make text centered
 		Label scpStatementLabel = new Label("Secure|Contain|Protect");
-		scpStatementLabel.setFont(Font.loadFont("file:src/main/resources/bauhaus-bold-bt.ttf", 24));
+		scpStatementLabel.setStyle(SET_TEXT_WHITE);
+		scpStatementLabel.setFont(Font.loadFont(BAUHAUS_FONT, 24));
 		VBox scpVBox = new VBox(scpTitleLabel, scpStatementLabel);
 		scpVBox.setAlignment(Pos.CENTER);
 		Label kioskMessage = new Label("You are using Info Kiosk #07\nPlease select a login option!");
-		scpTitleLabel.setTextAlignment(TextAlignment.CENTER); //Make text centered
+		kioskMessage.setStyle(SET_TEXT_WHITE);
 		//Give the user 2 buttons to pick what login they need
 		Button guestButton = new Button("Guest Login");
 		Button agentButton = new Button("Agent Login");
@@ -68,6 +82,7 @@ public class Homework4 extends Application {
 		VBox welcomeVBox = new VBox(foundationLogo, scpVBox, kioskMessage, loginHBox);
 		welcomeVBox.setAlignment(Pos.TOP_CENTER); //Center the vertical box
 		welcomeVBox.setSpacing(30);//Give the elements some space between eachother
+		welcomeVBox.setBackground(CARBON_BG);
 
 		//Deal with button presses
 		guestButton.setOnAction(e->{

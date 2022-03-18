@@ -3,9 +3,9 @@ import java.util.HashSet;
 
 public class ProxyOfficialFetcher implements FileFetcher {
     private FileFetcher fetcher = new UnrestrictedFetcher();
-    private static File f = new File("./src/main/resources");
+    private static File f = new File("./src/main/resources/textfiles");
     private static String[] directoryFiles = f.list();
-    private static HashSet<String> funFiles;
+    private static HashSet<String> funFiles = new HashSet<>();
 
     static {
         //Create a list of all files in the resources folder

@@ -4,9 +4,9 @@ import java.util.HashSet;
 public class ProxyCivillianFetcher implements FileFetcher {
     //Use an instance of the unrestricted fetcher even within civillian
     private FileFetcher fetcher = new UnrestrictedFetcher();
-    private static File f = new File("./src/main/resources");
+    private static File f = new File("./src/main/resources/textfiles");
     private static String[] directoryFiles = f.list();
-    private static HashSet<String> classifiedFiles;
+    private static HashSet<String> classifiedFiles = new HashSet<>();
     static {
         //Create a list of all files in the resources folder
         for (String file : directoryFiles) {
@@ -16,16 +16,12 @@ public class ProxyCivillianFetcher implements FileFetcher {
             }
         }
     }
-    
 
     @Override
     public String fetchFile(String fileName) throws Exception {
         if (classifiedFiles.contains(fileName)) {
             throw new Exception("THIS FILE IS CLASSIFIED, MOVE ON CITIZEN.");
         }
-
         return fetcher.fetchFile(fileName);
     }
-    
-    
 }
